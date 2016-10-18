@@ -22,16 +22,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function (req, res, next) {
+  res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+  next();
+});
+
 app.use('/', routes);
 
 // error handlers
 // development error handler
 // will print stacktrace
-  // 404 catch-all handler (middleware)
-  app.use(function (req, res, next) {
-    res.status(404);
-    res.render('404');
-  });
+// 404 catch-all handler (middleware)
+app.use(function (req, res, next) {
+  res.status(404);
+  res.render('404');
+});
 
 
 // production error handler
