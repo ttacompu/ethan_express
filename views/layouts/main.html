@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> {{#if showTests}}
     <link rel="stylesheet" href="/vendor/mocha.css"> {{/if}}
     <script src="//code.jquery.com/jquery-2.0.2.min.js"></script>
+    <style>
+        #results li.pass { color: green; }
+        #results li.fail { color: red; }
+    </style>
 </head>
 
 <body>
@@ -39,6 +43,16 @@
 
     <script>mocha.run();</script>
     {{/if}}
+
+        <script>
+                function assert(value, desc) {
+                    var li = document.createElement("li");
+                    li.className = value ? "pass" : "fail";
+                    li.appendChild(document.createTextNode(desc));
+                    document.getElementById("results").appendChild(li);
+                }
+
+        </script>
     
     {{{_sections.jquery}}}
 </body>

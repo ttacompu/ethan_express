@@ -1,9 +1,88 @@
 <h1>About Meadowlark Travel</h1>
 <blockquote>{{fortune}}</blockquote>
-    {{#section 'jquery'}}
-        <script>
+<div id='results'></div>
+{{#section 'jquery'}}
+<script>
+           
+
+            var store = {
+                    nextIndex : 1,
+                    cache : {},
+                    add : function(fn){
+                            if(!fn.id){
+                                fn.id = this.nextIndex++;
+                                this.cache[fn.id] = fn;
+                                return true;
+                            }
+                    }
+            }
+
+            function isPrime(value){
+                if(!isPrime.answers){
+                    isPrime.answers= {}
+                }
+
+                if(isPrime.answers[value] !== undefined){
+                    return isPrime.answers[value];
+                }
+
+                var prime = 1 !== value;
+
+                for(var i = 2; i < value; i++){
+                    if (value % i ===0){
+                        prime = false;
+                        break;
+                    }
+                }
+                return isPrime.answers[value] = prime;
+            }
+
+            function ninja(){
+                console.log("I am ninja")
+
+            }
+
+          /*  function Ninja(){
+                this.skulk = function(){
+                    return this;
+                }
+            } */
+
+            function sum(...arg){
+                var tot = 0;
+                for(var i=0; i<arg.length; i++){
+                        tot += arg[i]
+                }
+                return tot;
+            }
+
+            function Ninja(){
+                this.whoAmI = () => this;
+            }
+            var ninja1 = new Ninja();
+            
+            var ninja2 = 
+            {
+                whoAmI: ninja1.whoAmI
+            };
+
+
             $('document').ready(function(){
+               assert(store.add(ninja), "ninja function added") 
+                assert(store.add(ninja), "ninja function added")
+                assert(isPrime(997), "997 is prime");
+                assert(isPrime(997), "997 is prime very fast from cache");
+                assert(!isPrime(30), "30 is not prime");
+                assert(sum(1,2,3)===6, "total is 6");
+
+                assert(ninja1.whoAmI() === ninja1, "ninja1");
+
+                console.log(ninja2.whoAmI());
+                assert(ninja2.whoAmI() === ninja2, "ninja2");
+
+                
             $('h1').html('jQuery Works');
+
+            
         });
-    </script>
-    {{/section}}
+    </script> {{/section}}
